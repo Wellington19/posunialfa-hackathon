@@ -25,7 +25,8 @@ export class CreateUsersToken1670775135807 implements MigrationInterface {
           },
           {
             name: 'created_at',
-            type: 'datetime'
+            type: 'datetime',
+            default: 'now()'
           }
         ]
       })
@@ -37,7 +38,7 @@ export class CreateUsersToken1670775135807 implements MigrationInterface {
         columnNames: ['user_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
-        onDelete: 'NO ACTION',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
     )

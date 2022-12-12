@@ -41,7 +41,8 @@ export class CreateRatingImc1670775524833 implements MigrationInterface {
           },
           {
             name: 'created_at',
-            type: 'datetime'
+            type: 'datetime',
+            default: 'now()'
           }
         ]
       })

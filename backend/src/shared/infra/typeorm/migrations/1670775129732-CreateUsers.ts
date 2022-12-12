@@ -12,6 +12,10 @@ export class CreateUsers1670775129732 implements MigrationInterface {
             isPrimary: true
           },
           {
+            name: 'name',
+            type: 'nvarchar(60)',
+          },
+          {
             name: 'username',
             type: 'nvarchar(60)',
             isUnique: true
@@ -25,8 +29,13 @@ export class CreateUsers1670775129732 implements MigrationInterface {
             type: 'nvarchar(20)',
           },
           {
+            name: 'situation',
+            type: 'nchar(1)',
+          },
+          {
             name: 'created_at',
-            type: 'datetime'
+            type: 'datetime',
+            default: 'now()'
           }
         ]
       })
