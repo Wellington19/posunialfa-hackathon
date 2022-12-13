@@ -32,7 +32,7 @@ export class CreateRatingImc1670775524833 implements MigrationInterface {
             type: 'nvarchar(10)'
           },
           {
-            name: 'user_inclusion_id',
+            name: 'user_rating_id',
             type: 'nchar(36)'
           },
           {
@@ -51,7 +51,7 @@ export class CreateRatingImc1670775524833 implements MigrationInterface {
     await queryRunner.createForeignKey(
       'rating_imc',
       new TableForeignKey({
-        columnNames: ['user_inclusion_id'],
+        columnNames: ['user_rating_id'],
         referencedColumnNames: ['id'],
         referencedTableName: 'users',
         onDelete: 'NO ACTION',
