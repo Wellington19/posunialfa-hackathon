@@ -12,11 +12,10 @@ export class UserTokenRepository implements IUserTokenRepository {
     this.repository = MyDBDataSource.getRepository(UserToken)
   }
 
-  async create({ refresh_token, user_id, expires_in }: ICreateUserTokenDTO): Promise<UserToken> {
+  async create({ refresh_token, user_id, expires_in }: ICreateUserTokenDTO): Promise<void> {
     const userToken = this.repository.create({ refresh_token, user_id, expires_in })
-    await this.repository.save(userToken)
 
-    return userToken
+    await this.repository.save(userToken)
   }
 
   async findByUserIdAndRefreshToken(user_id: string, refresh_token: string): Promise<UserToken> {
