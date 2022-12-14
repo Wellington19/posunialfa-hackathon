@@ -19,7 +19,31 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "baseUrl": "./src",
+    "paths": {
+      "@components/*": [
+        "components/*"
+      ],
+      "@componentsShared/*": [
+        "components/shared/*"
+      ],
+      "@componentsUI/*": [
+        "components/shared/UI/*"
+      ],
+      "@contexts/*": [
+        "contexts/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@types/*": [
+        "types/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",
