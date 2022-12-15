@@ -10,7 +10,6 @@ import { IPayload } from '@modules/session/dtos/IPayload'
 import { AppError } from '@shared/errors/AppError'
 
 interface IExecute {
-  user_requisition_id: string
   refresh_token: string
 }
 
@@ -23,10 +22,8 @@ export class RefreshTokenUseCase {
     private dateProvider: IDateProvider
   ) { }
 
-  async execute({ user_requisition_id, refresh_token }: IExecute): Promise<IResponseTokens> {
+  async execute({ refresh_token }: IExecute): Promise<IResponseTokens> {
     const { sub: userId, username } = jwt.verify(refresh_token, auth.secretRefreshToken) as IPayload
-
-    if (userId !== user_requisition_id) throw new AppError('Refresh token inválido')
 
     const userToken = await this.userTokenRepository.findByUserIdAndRefreshToken(userId, refresh_token)
     if (!userToken) throw new AppError('Refresh token inválido')
@@ -35,7 +32,7 @@ export class RefreshTokenUseCase {
 
     const token = generateTokens({ sub: userId, username })
     await this.userTokenRepository.create({
-      user_id: user_requisition_id,
+      user_id: userId,
       refresh_token: token.refresh_token,
       expires_in: this.dateProvider.addHours(auth.expiresInRefreshTokenHours)
     })

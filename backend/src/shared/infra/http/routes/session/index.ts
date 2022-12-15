@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import { ensureAuthenticated } from '@middlewares/isAuthenticated'
 import * as v from './validators'
 
 import { AuthenticateUserController } from '@modules/session/useCases/authenticateUser/AuthenticateUserController'
@@ -12,7 +11,6 @@ const sessionRoutes = Router()
 
 sessionRoutes.post('/', v.authenticateUser, authenticateUserController.handle)
 
-sessionRoutes.use(ensureAuthenticated)
 sessionRoutes.post('/refresh-token', v.refreshToken, refreshTokenController.handle)
 
 export { sessionRoutes }
