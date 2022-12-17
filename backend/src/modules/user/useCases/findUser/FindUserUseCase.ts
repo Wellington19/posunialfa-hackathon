@@ -4,8 +4,9 @@ import { IUserRepository } from '@modules/user/repositories/IUserRepository'
 import { IResponseFindUser } from '@modules/user/dtos/IResponse'
 
 interface IExecute {
-  skip: number
-  limit: number
+  profile?: string
+  skip?: number
+  limit?: number
 }
 
 @injectable()
@@ -15,7 +16,7 @@ export class FindUserUseCase {
     private userRepository: IUserRepository
   ) { }
 
-  async execute({ skip, limit }: IExecute): Promise<IResponseFindUser> {
-    return await this.userRepository.find({ skip, limit })
+  async execute({ profile, skip, limit }: IExecute): Promise<IResponseFindUser> {
+    return await this.userRepository.find({ profile, skip, limit })
   }
 }

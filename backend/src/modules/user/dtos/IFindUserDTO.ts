@@ -1,4 +1,5 @@
 export interface IFindUserDTO {
-  skip: number
-  limit: number
+  profile?: string
+  skip?: number
+  limit?: number
 }

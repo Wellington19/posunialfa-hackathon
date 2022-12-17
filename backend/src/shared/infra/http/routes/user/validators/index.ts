@@ -12,8 +12,9 @@ export const createUser = celebrate({
 
 export const findUser = celebrate({
   [Segments.QUERY]: {
-    skip: Joi.number().positive().integer().allow(0).required(),
-    limit: Joi.number().positive().integer().allow(0).required()
+    profile: Joi.string().valid('Administrador', 'Professor', 'Aluno'),
+    skip: Joi.number().positive().integer().allow(0),
+    limit: Joi.number().positive().integer().allow(0)
   }
 })
 

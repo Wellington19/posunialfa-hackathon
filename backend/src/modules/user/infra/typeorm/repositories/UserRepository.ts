@@ -27,12 +27,13 @@ export class UserRepository implements IUserRepository {
     await this.repository.save(user)
   }
 
-  async find({ skip, limit }: IFindUserDTO): Promise<IResponseFindUser> {
+  async find({ profile, skip, limit }: IFindUserDTO): Promise<IResponseFindUser> {
     const [users, totalCount] = await this.repository.findAndCount({
       select: ['id', 'name', 'username', 'profile', 'situation', 'created_at'],
+      where: { profile },
       order: { name: 'ASC', username: 'ASC', created_at: 'ASC' },
-      skip,
-      take: limit
+      skip: skip || 0,
+      take: limit || 0
     })
 
     return { users, totalCount }
