@@ -1,4 +1,4 @@
 export const corsOptions = {
   origin: ['http://localhost:3000'],
-  exposedHeaders: ['Authorization', 'X-Total-Count']
+  exposedHeaders: ['Authorization', 'x-total-count']
 }

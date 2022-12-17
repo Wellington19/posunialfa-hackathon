@@ -14,6 +14,6 @@ export class FindUserController {
       limit: parseInt(limit.toString())
     })
 
-    return response.set('X-Total-Count', totalCount.toString()).json(users)
+    return response.set('x-total-count', totalCount.toString()).json(users)
   }
 }

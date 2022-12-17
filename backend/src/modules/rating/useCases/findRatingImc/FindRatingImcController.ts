@@ -15,6 +15,6 @@ export class FindRatingImcController {
       limit: parseInt(limit.toString())
     })
 
-    return response.set('X-Total-Count', totalCount.toString()).json(ratings)
+    return response.set('x-total-count', totalCount.toString()).json(ratings)
   }
 }
