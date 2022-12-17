@@ -2,7 +2,7 @@ import React from 'react'
 import { forwardRef, Button, ButtonProps, Icon } from '@chakra-ui/react'
 import { FaSignInAlt, FaTrashAlt } from 'react-icons/fa'
 import { RiAddLine, RiFilterLine, RiPencilLine } from 'react-icons/ri'
-import { MdCancel, MdDone, MdSave } from 'react-icons/md'
+import { MdCancel, MdDone, MdRefresh, MdSave } from 'react-icons/md'
 
 export const ButtonBlue = forwardRef<ButtonProps, 'button'>((props, ref) => (
   <Button
@@ -109,6 +109,20 @@ export const ButtonSave = forwardRef<ButtonProps, 'button'>((props, ref) => (
     textColor="white"
     bgColor="blue.600"
     leftIcon={<Icon as={MdSave} fontSize="20" />}
+    _hover={{
+      bgColor: 'blue.700'
+    }}
+    ref={ref}
+    {...props}
+  />
+))
+
+export const ButtonRefresh = forwardRef<ButtonProps, 'button'>((props, ref) => (
+  <Button
+    size="sm"
+    textColor="white"
+    bgColor="blue.600"
+    leftIcon={<Icon as={MdRefresh} fontSize="20" />}
     _hover={{
       bgColor: 'blue.700'
     }}

@@ -2,15 +2,7 @@ import { useQuery } from 'react-query'
 import { dateFormatted } from '@utils/date'
 import { api } from '@services/apiClient'
 import { toastMessage } from '@utils/toast'
-
-interface IUser {
-  id: string
-  name: string
-  username: string
-  profile: string
-  situation: string
-  created_at: Date
-}
+import { IUser } from './types/IUser'
 
 interface IResponse {
   users: IUser[]
@@ -18,21 +10,24 @@ interface IResponse {
 }
 
 interface IParams {
-  page: number
-  limit: number
+  profile?: string
+  page?: number
+  limit?: number
 }
 
-export async function getUsers({ page, limit }: IParams): Promise<IResponse> {
+export async function getUsers({ profile, page, limit }: IParams): Promise<IResponse> {
   const users = []
   let totalCount = 0
   let skip = 0
   if (page > 0) skip = page * limit
 
+  let objQuery = {}
+  if (profile) objQuery = { ...objQuery, profile }
+  if (page) objQuery = { ...objQuery, page }
+  if (skip) objQuery = { ...objQuery, skip }
+
   const { data, headers } = await api.get('user', {
-    params: {
-      skip,
-      limit
-    }
+    params: { ...objQuery }
   })
   totalCount = Number(headers['x-total-count'])
 
@@ -50,8 +45,8 @@ export async function getUsers({ page, limit }: IParams): Promise<IResponse> {
   return { users, totalCount }
 }
 
-export function useUsers({ page, limit }: IParams) {
-  return useQuery(['users', page, limit], () => getUsers({ page, limit }), {
+export function useUsers({ profile, page, limit }: IParams) {
+  return useQuery(['users', profile, page, limit], () => getUsers({ profile, page, limit }), {
     onError: (error: TErrorResponse) => {
       const message = error?.response?.data?.message
         ? `${error.response.data.message},`

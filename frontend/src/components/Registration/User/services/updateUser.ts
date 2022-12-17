@@ -12,10 +12,10 @@ interface IUpdateUserDTO {
 }
 
 interface IOldData {
-  name?: string
-  username?: string
-  profile?: string
-  situation?: string
+  name: string
+  username: string
+  profile: string
+  situation: string
 }
 
 export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promise<void> {
@@ -50,6 +50,7 @@ export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promi
       })
       .finally(() => {
         queryClient.invalidateQueries('users')
+        queryClient.invalidateQueries('usersCombo')
       })
   }
 }

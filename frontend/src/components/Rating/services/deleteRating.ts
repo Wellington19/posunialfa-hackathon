@@ -2,13 +2,13 @@ import { api } from '@services/apiClient'
 import { queryClient } from '@services/queryClient'
 import { toastMessage } from '@utils/toast'
 
-export async function deleteUser(id: string): Promise<void> {
+export async function deleteRating(id: string): Promise<void> {
   await api
-    .delete(`user/${id}`)
+    .delete(`rating/imc/${id}`)
     .then(() => {
       toastMessage({
         type: 'success',
-        message: 'Usuário excluído com sucesso!'
+        message: 'Avaliação excluída com sucesso!'
       })
     })
     .catch(error => {
@@ -18,12 +18,11 @@ export async function deleteUser(id: string): Promise<void> {
 
       toastMessage({
         type: 'error',
-        message: `Falha ao excluir usuário: ${message} tente novamente!`,
+        message: `Falha ao excluir avaliação: ${message} tente novamente!`,
         autoClose: 5000
       })
     })
     .finally(() => {
-      queryClient.invalidateQueries('users')
-      queryClient.invalidateQueries('usersCombo')
+      queryClient.invalidateQueries('ratings')
     })
 }

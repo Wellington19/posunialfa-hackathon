@@ -62,7 +62,7 @@ export function getTheme(config?: TConfigTheme): Theme {
       },
       MuiTableCell: {
         body: {
-          fontSize: config?.fontSizeBody ? config.fontSizeBody : '0.800rem',
+          fontSize: config?.fontSizeBody ? config.fontSizeBody : '0.850rem',
           wordBreak: 'normal',
           whiteSpace: 'nowrap'
         }

@@ -2,35 +2,39 @@ import { api } from '@services/apiClient'
 import { queryClient } from '@services/queryClient'
 import { toastMessage } from '@utils/toast'
 
-interface ICreateUserDTO {
-  name: string
-  username: string
-  password: string
-  profile: string
-  situation: string
+interface ICreateRatingDTO {
+  height: number
+  weight: number
+  user_rating_id: string
+  user_student_id: string
 }
 
-export async function createUser(data: ICreateUserDTO): Promise<void> {
+export async function createRating(data: ICreateRatingDTO): Promise<boolean> {
+  let success = false
+
   await api
-    .post('user', data)
+    .post('rating/imc', data)
     .then(() => {
       toastMessage({
         type: 'success',
-        message: 'Usuário cadastrado com sucesso!'
+        message: 'Avaliação cadastrada com sucesso!'
       })
+      success = true
     })
     .catch(error => {
       const message = error.response
         ? `${error.response.data.message}`
         : 'Erro de comunicação com servidor'
+
       toastMessage({
         type: 'error',
-        message: `Falha ao salvar usuário: ${message}`,
+        message: `Falha ao salvar avaliação: ${message}`,
         autoClose: 5000
       })
+      success = false
     })
     .finally(() => {
-      queryClient.invalidateQueries('users')
-      queryClient.invalidateQueries('usersCombo')
+      queryClient.invalidateQueries('ratings')
     })
+  return success
 }

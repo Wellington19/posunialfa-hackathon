@@ -1,13 +1,12 @@
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import MUIDataTable, { SelectableRows } from 'mui-datatables'
 import { ThemeProvider } from '@material-ui/core/styles'
-import { Badge } from '@chakra-ui/react'
 import { ButtonDelete, ButtonEdit, PopoverConfirm } from '@componentsUI/exports'
 import { executeSort, textLabels, getTheme } from '@utils/configMuiTable'
 import { useModalContext } from '@contexts/ModalContext'
 import { useMUITableContext } from '@contexts/MUITableContext'
 import { formatDateptBR } from '@utils/format'
-import { getColorSituation } from '@utils/functions'
+import { deleteRating } from './services/deleteRating'
 
 const theme = getTheme({ boxShadowPaper: 'none' })
 
@@ -19,7 +18,7 @@ const columnsTable = [
   'IMC',
   'Classificação',
   'Grau',
-  'Avaliador',
+  'Professor',
   'Data avaliação'
 ]
 
@@ -109,7 +108,7 @@ function MUITable({ data, count }: IProps) {
       'IMC',
       'Classificação',
       'Grau',
-      'Avaliador',
+      'Professor',
       {
         name: 'Data avaliação',
         options: {
@@ -130,18 +129,32 @@ function MUITable({ data, count }: IProps) {
                 <ButtonEdit
                   mr="1"
                   size="xs"
-                  onClick={() =>
+                  onClick={() => {
+                    const height = dataState[dataIndex][2]
+                      .toString()
+                      .replace(/\D/g, '')
+                      .padEnd(3, '0')
+                    const weight = dataState[dataIndex][3]
+                      .toString()
+                      .replace(/\D/g, '')
+                      .padEnd(4, '0')
+
                     onOpenModalCreateUpdate({
-                      type: 'Editar avaliação'
+                      type: 'Editar avaliação',
+                      id: dataState[dataIndex][0].id,
+                      height,
+                      weight,
+                      user_rating_id: dataState[dataIndex][0].user_rating_id,
+                      user_student_id: dataState[dataIndex][0].user_student_id
                     })
-                  }
+                  }}
                 >
                   Editar
                 </ButtonEdit>
 
                 <PopoverConfirm
-                  actionConfirm={() => console.log('')}
-                  messageBody="Tem certeza que deseja excluir o usuário?"
+                  actionConfirm={() => deleteRating(dataState[dataIndex][0].id)}
+                  messageBody="Tem certeza que deseja excluir a avaliação?"
                 >
                   <ButtonDelete size="xs">Excluir</ButtonDelete>
                 </PopoverConfirm>

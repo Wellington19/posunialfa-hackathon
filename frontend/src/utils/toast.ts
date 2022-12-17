@@ -8,7 +8,7 @@ interface ToastMessage {
 
 export function toastMessage({ type, message, autoClose = 3000 }: ToastMessage): string | number {
   return toast[type](message, {
-    position: 'top-right',
+    position: 'top-left',
     autoClose,
     hideProgressBar: false,
     closeOnClick: true,

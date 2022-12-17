@@ -127,7 +127,6 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
 
   return (
     <Modal
-      // initialFocusRef={initialRef}
       isOpen={isOpen}
       onClose={onCloseModal}
       closeOnOverlayClick={false}
@@ -138,9 +137,8 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>{modalCreateUpdateData?.type}</ModalHeader>
-          <Box pl="5" pr="5" mt="-2">
-            <Divider borderColor="gray.200" />
-          </Box>
+
+          <Divider mt="-3" />
 
           <ModalCloseButton tabIndex={-1} />
 
