@@ -11,7 +11,6 @@ interface IProps extends InputProps {
   error?: FieldError | FieldErrors
   isRequired?: boolean
   isDisabled?: boolean
-  bgColor?: string
   mask?: TMaskInput
 }
 

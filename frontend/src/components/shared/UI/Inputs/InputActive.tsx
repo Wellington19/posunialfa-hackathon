@@ -4,12 +4,11 @@ import { cep, cpf, cnpj, currency, integer } from '@utils/masks'
 
 interface IProps extends InputProps {
   name: string
-  bgColor?: string
   mask?: TMaskInput
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
-  { name, bgColor, mask, ...rest },
+  { name, mask, ...rest },
   ref
 ) => {
   const handleKeyUp = useCallback(
@@ -31,11 +30,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
       name={name}
       autoComplete="off"
       variant="outline"
-      bgColor={bgColor}
       focusBorderColor="blue.700"
-      _hover={{
-        bgColor: { bgColor }
-      }}
       size="lg"
       onKeyUp={handleKeyUp}
       {...rest}

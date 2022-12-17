@@ -18,11 +18,10 @@ interface IProps extends InputProps {
   iconOpen?: boolean
   error?: FieldError | FieldErrors
   isRequired?: boolean
-  bgColor?: string
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
-  { name, label, iconOpen = false, error = null, isRequired = false, bgColor = 'white', ...rest },
+  { name, label, iconOpen = false, error = null, isRequired = false, ...rest },
   ref
 ) => {
   const [isIconOpen, setIconOpen] = useState<boolean>(iconOpen)
@@ -44,13 +43,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
           />
         </InputRightElement>
 
-        <InputActive
-          ref={ref}
-          type={isIconOpen ? 'text' : 'password'}
-          bgColor={bgColor}
-          name={name}
-          {...rest}
-        />
+        <InputActive ref={ref} type={isIconOpen ? 'text' : 'password'} name={name} {...rest} />
       </InputGroup>
 
       {!!error && <FormErrorMessage mt="1">{error.message}</FormErrorMessage>}
