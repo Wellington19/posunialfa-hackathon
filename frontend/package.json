@@ -18,6 +18,7 @@
     "@material-ui/icons": "4.11.2",
     "axios": "1.2.1",
     "cross-env": "7.0.3",
+    "dayjs": "1.11.7",
     "framer-motion": "4.1.17",
     "mui-datatables": "3.7.7",
     "next": "11.0.0",
@@ -35,6 +36,7 @@
     "yup": "0.32.11"
   },
   "devDependencies": {
+    "@types/mui-datatables": "3.7.5",
     "@types/nprogress": "0.2.0",
     "@types/react": "17.0.11",
     "@typescript-eslint/eslint-plugin": "5.46.0",
