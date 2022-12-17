@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn } from 'typeorm'
+import { User } from '@modules/user/infra/typeorm/entities/User'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, OneToOne } from 'typeorm'
 import { v4 as uuidV4 } from 'uuid'
 
 @Entity('rating_imc')
@@ -29,6 +30,12 @@ export class RatingImc {
 
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date
+
+  @OneToOne(() => User, user => user.user_rating)
+  user_rating: User
+
+  @OneToOne(() => User, user => user.user_student)
+  user_student: User
 
   constructor() {
     if (!this.id) this.id = uuidV4()

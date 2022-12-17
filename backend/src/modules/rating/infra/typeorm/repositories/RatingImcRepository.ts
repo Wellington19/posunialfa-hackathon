@@ -41,6 +41,7 @@ export class RatingImcRepository implements IRatingImcRepository {
     const [ratings, totalCount] = await this.repository.findAndCount({
       where: { user_rating_id, user_student_id },
       order: { created_at: 'DESC' },
+      relations: ['user_rating', 'user_student'],
       skip,
       take: limit
     })
