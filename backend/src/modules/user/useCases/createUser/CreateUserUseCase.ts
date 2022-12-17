@@ -20,7 +20,7 @@ export class CreateUserUseCase {
   ) { }
   async execute({ name, username, password, profile, situation }: IExecute): Promise<void> {
     const user = await this.userRepository.findByUsername(username)
-    if (user) throw new AppError(`Usuário de acesso já cadastrado para o usuário: ${user.name}`)
+    if (user) throw new AppError(`Usuário ${username} já cadastrado para o usuário: ${user.name}`)
 
     const passwordHash = await hash(password, 8)
     await this.userRepository.create({ name, username, password: passwordHash, profile, situation })

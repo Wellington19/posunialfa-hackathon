@@ -33,7 +33,7 @@ export class PatchUserUseCase {
 
     if (username) {
       user = await this.userRepository.findByUsername(username)
-      if (user.id !== id) throw new AppError(`Usuário de acesso já cadastrado para o usuário: ${user.name}`)
+      if (user && user.id !== id) throw new AppError(`Usuário ${username} já cadastrado para o usuário: ${user.name}`)
     }
 
     await this.userRepository.update({
