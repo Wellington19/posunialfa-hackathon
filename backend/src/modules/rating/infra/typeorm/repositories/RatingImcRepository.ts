@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm'
+import { Repository, SimpleConsoleLogger } from 'typeorm'
 import { MyDBDataSource } from '@shared/infra/typeorm/dataSource'
 
 import { RatingImc } from '@modules/rating/infra/typeorm/entities/RatingImc'
@@ -38,13 +38,37 @@ export class RatingImcRepository implements IRatingImcRepository {
   }
 
   async find({ user_rating_id, user_student_id, skip, limit }: IFindRatingImcDTO): Promise<IResponseFindRatingImc> {
-    const [ratings, totalCount] = await this.repository.findAndCount({
-      where: { user_rating_id, user_student_id },
-      order: { created_at: 'DESC' },
-      relations: ['user_rating', 'user_student'],
-      skip,
-      take: limit
-    })
+    const { manager } = this.repository
+
+    let query = `
+      SELECT T0.*, T1.name as user_rating_name, T2.name as user_student_name FROM rating_imc T0      
+    `
+    let queryCount = `
+      SELECT COUNT(*) as totalCount FROM rating_imc T0
+    `
+    let joins = `
+      INNER JOIN users T1 ON T0.user_rating_id = T1.id 
+      INNER JOIN users T2 ON T0.user_student_id = T2.id
+      WHERE 1 = 1
+    `
+    query += joins
+    queryCount += joins
+
+    if (user_rating_id) {
+      query += ` AND T0.user_rating_id = '${user_rating_id}'`
+      queryCount += ` AND T0.user_rating_id = '${user_rating_id}'`
+    }
+    if (user_student_id) {
+      query += ` AND T0.user_student_id = '${user_student_id}'`
+      queryCount += ` AND T0.user_student_id = '${user_student_id}'`
+    }
+
+    query += ` ORDER BY T0.created_at`
+    query += ` LIMIT ${skip}, ${limit}`
+
+    const ratings = await manager.query(query)
+    const totalRecords = await manager.query(queryCount)
+    const totalCount = Number(totalRecords[0].totalCount)
 
     return { ratings, totalCount }
   }

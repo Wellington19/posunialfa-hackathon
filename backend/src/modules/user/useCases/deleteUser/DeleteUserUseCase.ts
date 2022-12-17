@@ -20,7 +20,7 @@ export class DeleteUserUseCase {
     const hasStudentHistoric = await this.ratingImcRepository.find({ user_student_id: user.id, skip: 0, limit: 1 })
     const hasRatingHistoric = await this.ratingImcRepository.find({ user_rating_id: user.id, skip: 0, limit: 1 })
 
-    if (hasStudentHistoric.totalCount || hasRatingHistoric.totalCount)
+    if (hasStudentHistoric.totalCount > 0 || hasRatingHistoric.totalCount > 0)
       throw new AppError('Não é possível excluir o usuário, ele possui histórico de avaliações')
 
     await this.userRepository.delete(id)
