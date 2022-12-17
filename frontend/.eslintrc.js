@@ -38,11 +38,13 @@ module.exports = {
     ],
     // We will use TypeScript's types for component props instead
     'react/prop-types': 'off',
-    // We don't want unused vars
-    '@typescript-eslint/no-unused-vars': [
-      'error'
-    ],
+    '@typescript-eslint/no-unused-vars': 'off',
+    'import/prefer-default-export': 'off',
+    'react/require-default-props': 'off',
     'react/jsx-props-no-spreading': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-shadow': 'off',
+    '@typescript-eslint/naming-convention': 'off'
   }
 }
