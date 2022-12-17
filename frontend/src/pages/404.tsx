@@ -21,7 +21,7 @@ export default function Custom404() {
           A página que você está procurando não existe ou está temporariamente indisponível.
         </Text>
 
-        <ButtonBlue size="md" onClick={() => router.push('/dashboard')}>
+        <ButtonBlue size="md" onClick={() => router.push('/home')}>
           Voltar para o início
         </ButtonBlue>
       </Box>

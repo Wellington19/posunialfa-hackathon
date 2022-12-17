@@ -15,15 +15,15 @@ import { ImExit } from 'react-icons/im'
 import { useSideBarContext } from '@contexts/SideBarContext'
 import { useAuthContext } from '@contexts/AuthContext'
 
-export function SideBar() {
-  const { signOut, user } = useAuthContext()
+export function Sidebar() {
+  const { signOut } = useAuthContext()
   const { isOpen } = useSideBarContext()
 
   return (
     <ProSidebar collapsed={!isOpen}>
       <SidebarHeader>
         <Menu iconShape="square">
-          <Link href="/dashboard" passHref>
+          <Link href="/home" passHref>
             <MenuItem icon={<FaHome />}>Início</MenuItem>
           </Link>
         </Menu>
@@ -35,7 +35,6 @@ export function SideBar() {
             <Link href="/cadastros/usuarios" passHref>
               <MenuItem>Usuários</MenuItem>
             </Link>
-
           </SubMenu>
         </Menu>
       </SidebarContent>

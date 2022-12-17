@@ -1,5 +1,4 @@
 import React from 'react'
-import Link from 'next/link'
 import { Flex, Box, Text, Avatar } from '@chakra-ui/react'
 import { useAuthContext } from '@contexts/AuthContext'
 
@@ -21,9 +20,7 @@ export function Profile({ showProfileData = true }: IProps) {
         </Box>
       )}
 
-      <Link href={`/cadastros/usuarios/editar/${user?.id}`} passHref>
-        <Avatar size="md" name={user?.name} cursor="pointer" />
-      </Link>
+      <Avatar size="md" name={user?.name} />
     </Flex>
   )
 }

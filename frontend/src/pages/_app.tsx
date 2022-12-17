@@ -7,7 +7,7 @@ import { ChakraProvider } from '@chakra-ui/react'
 import { ToastContainer } from 'react-toastify'
 import { queryClient } from '@services/queryClient'
 import { ProgressLoading } from '@componentsShared/exports'
-import Layout from '@components/shared/UI/Layout'
+import Layout from '@componentsShared/Layout'
 import { AuthProvider } from '@contexts/AuthContext'
 import { SideBarProvider } from '@contexts/SideBarContext'
 

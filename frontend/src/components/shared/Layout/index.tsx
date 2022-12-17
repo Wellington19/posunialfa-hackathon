@@ -1,7 +1,7 @@
 import React, { ReactNode, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Box, Grid } from '@chakra-ui/react'
-import { Header, SideBar } from '@componentsShared/exports'
+import { Header, Sidebar } from '@componentsShared/exports'
 
 interface IProps {
   children?: ReactNode
@@ -41,7 +41,7 @@ export default function Layout({ children }: IProps) {
           <Header childVisible={headerVisible} />
         </Box>
 
-        <Box gridArea="sidebar">{sideBarVisible && <SideBar />}</Box>
+        <Box gridArea="sidebar">{sideBarVisible && <Sidebar />}</Box>
 
         <Box gridArea="main" overflow="auto">
           {children}

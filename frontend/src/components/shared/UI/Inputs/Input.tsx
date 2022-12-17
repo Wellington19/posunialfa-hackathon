@@ -1,5 +1,5 @@
 import React, { forwardRef, ForwardRefRenderFunction } from 'react'
-import { FieldError } from 'react-hook-form'
+import { FieldError, FieldErrors } from 'react-hook-form'
 import { FormControl, InputProps, FormErrorMessage } from '@chakra-ui/react'
 import { Label } from './Label'
 import { InputDisabled } from './InputDisabled'
@@ -8,7 +8,7 @@ import { InputActive } from './InputActive'
 interface IProps extends InputProps {
   name: string
   label?: string
-  error?: FieldError
+  error?: FieldError | FieldErrors
   isRequired?: boolean
   isDisabled?: boolean
   bgColor?: string
@@ -16,15 +16,7 @@ interface IProps extends InputProps {
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
-  {
-    name,
-    label,
-    error = null,
-    isRequired = false,
-    isDisabled = false,
-    mask = undefined,
-    ...rest
-  },
+  { name, label, error = null, isRequired = false, isDisabled = false, mask = undefined, ...rest },
   ref
 ) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
-import { PageTitle } from '@componentsUI/exports'
+import { PageTitle } from '@componentsShared/exports'
 import { withSSRAuth } from '@utils/withSSRAuth'
 
-export default function Dashboard() {
+export default function Home() {
   return <PageTitle title="Início" />
 }
 

@@ -1,5 +1,5 @@
 import React, { forwardRef, ForwardRefRenderFunction, useState } from 'react'
-import { FieldError } from 'react-hook-form'
+import { FieldError, FieldErrors } from 'react-hook-form'
 import {
   FormControl,
   InputProps,
@@ -16,21 +16,13 @@ interface IProps extends InputProps {
   name: string
   label: string
   iconOpen?: boolean
-  error?: FieldError
+  error?: FieldError | FieldErrors
   isRequired?: boolean
   bgColor?: string
 }
 
 const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
-  {
-    name,
-    label,
-    iconOpen = false,
-    error = null,
-    isRequired = false,
-    bgColor = 'white',
-    ...rest
-  },
+  { name, label, iconOpen = false, error = null, isRequired = false, bgColor = 'white', ...rest },
   ref
 ) => {
   const [isIconOpen, setIconOpen] = useState<boolean>(iconOpen)
@@ -40,9 +32,8 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
       <Label name={name} label={label} isRequired={isRequired} />
 
       <InputGroup>
-        <InputRightElement>
+        <InputRightElement h="full">
           <IconButton
-            mt="2"
             tabIndex={-1}
             bg="transparent !important"
             color="blue.700"

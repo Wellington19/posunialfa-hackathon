@@ -78,11 +78,15 @@ export function AuthProvider({ children }: IProps) {
         path: '/'
       })
 
-      api.defaults.headers['Authorization'] = `Bearer ${access_token}`
-      Router.push('/dashboard')
+      api.defaults.headers.Authorization = `Bearer ${access_token}`
+      Router.push('/home')
       return null
     } catch (err) {
-      return toastMessage({ type: 'error', message: 'Usuário ou senha incorreto(s)!', autoClose: 5000 })
+      return toastMessage({
+        type: 'error',
+        message: 'Usuário ou senha incorreto(s)!',
+        autoClose: 5000
+      })
     }
   }
 
