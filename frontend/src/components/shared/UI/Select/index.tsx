@@ -48,7 +48,7 @@ const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, ISelectProps> = (
           size="lg"
           autoComplete="off"
           variant="outline"
-          focusBorderColor="blue.900"
+          focusBorderColor="blue.700"
           isDisabled
           cursor="not-allowed"
           bgColor="gray.50"
@@ -75,7 +75,7 @@ const SelectBase: ForwardRefRenderFunction<HTMLSelectElement, ISelectProps> = (
           id={name}
           autoComplete="off"
           variant="outline"
-          focusBorderColor="blue.900"
+          focusBorderColor="blue.700"
           size="lg"
           ref={ref}
           {...rest}

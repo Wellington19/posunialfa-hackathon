@@ -32,7 +32,7 @@ export default function ModalLoading({ isOpen, onClose, messageHeader }: IProps)
         <ModalHeader>{messageHeader}</ModalHeader>
         <ModalBody>
           <Flex justifyContent="center">
-            <CircularProgress size="100px" isIndeterminate color="blue.900" />
+            <CircularProgress size="100px" isIndeterminate color="blue.700" />
           </Flex>
         </ModalBody>
         <ModalFooter />
