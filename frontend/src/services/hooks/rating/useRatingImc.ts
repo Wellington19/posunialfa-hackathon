@@ -4,7 +4,7 @@ import { api } from '@services/apiClient'
 import { toastMessage } from '@utils/toast'
 import { IRatingImc } from './types/IRatingImc'
 
-interface IResponse {
+export interface IResponse {
   ratings: IRatingImc[]
   totalCount: number
 }

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Divider, SimpleGrid, Skeleton } from '@chakra-ui/react'
+import { Box, Divider, SimpleGrid, Skeleton } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Container, PageBodyTitle, PageTitle, Section } from '@componentsShared/exports'
 import { ButtonNew, ButtonRefresh, Select } from '@componentsUI/exports'
@@ -8,6 +8,8 @@ import { ModalProvider, useModalContext } from '@contexts/ModalContext'
 import { MUITableProvider, useMUITableContext } from '@contexts/MUITableContext'
 import { useUsersCombo } from '@services/hooks/user/useUsersCombo'
 import { useRatings } from '@services/hooks/rating/useRatingImc'
+import { getDataChart } from '@components/Rating/utils/functions'
+import { optionsChart } from '@components/Rating/utils/variables'
 import { queryClient } from '@services/queryClient'
 import { withSSRAuth } from '@utils/withSSRAuth'
 
@@ -19,6 +21,10 @@ const MUITable = dynamic(() => import('@components/Rating/MUITable'), {
 const ModalLoading = dynamic(() => import('@componentsShared/ModalLoading'))
 
 const ModalCreateUpdate = dynamic(() => import('@components/Rating/ModalCreateUpdate'))
+
+const Chart = dynamic(() => import('react-google-charts'), {
+  ssr: false
+})
 
 interface IFormData {
   user_student_id: string
@@ -32,6 +38,8 @@ function Main() {
   } = useModalContext()
   const { page, rowsPerPage } = useMUITableContext()
 
+  const [dataChart, setDataChart] = useState<any[]>([['', 'IMC']])
+
   const { register, watch, formState, handleSubmit } = useForm({
     defaultValues: { user_student_id: '' }
   })
@@ -44,11 +52,8 @@ function Main() {
     isFetching: isFetchingUserStudentCombo
   } = useUsersCombo({ profile: 'Aluno' })
 
-  const {
-    data: dataUserTeacherCombo,
-    isLoading: isLoadingUserTeacherCombo,
-    isFetching: isFetchingUserTeacherCombo
-  } = useUsersCombo({ profile: 'Professor' })
+  const { isLoading: isLoadingUserTeacherCombo, isFetching: isFetchingUserTeacherCombo } =
+    useUsersCombo({ profile: 'Professor' })
 
   const {
     data: dataRating,
@@ -67,6 +72,11 @@ function Main() {
     queryClient.invalidateQueries(['ratings', watchForm[0]])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchForm[0]])
+
+  useEffect(() => {
+    setDataChart(getDataChart({ student_id: watchForm[0], page, limit: rowsPerPage }))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dataRating])
 
   return (
     <>
@@ -106,6 +116,18 @@ function Main() {
           >
             Atualizar
           </ButtonRefresh>
+
+          {dataChart.length > 1 && (
+            <Box pb="2" px="2">
+              <Chart
+                chartType="Bar"
+                width="100%"
+                height="200px"
+                data={dataChart}
+                options={optionsChart}
+              />
+            </Box>
+          )}
 
           <Divider />
 
