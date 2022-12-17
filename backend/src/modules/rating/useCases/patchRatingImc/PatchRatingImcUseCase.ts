@@ -49,8 +49,8 @@ export class PatchRatingImcUseCase {
     if (height || weight) {
       this.height = Number(height ?? rating.height)
       this.weight = Number(weight ?? rating.weight)
-      this.classification = rating.classification
-      this.degree = rating.degree
+      this.classification = rating.classification as TClassification
+      this.degree = rating.degree as TDegree
       this.imc = Number((this.weight / (this.height * this.height)).toFixed(2))
 
       if (this.imc > 18.5 && this.imc <= 24.99) this.classification = 'NORMAL'

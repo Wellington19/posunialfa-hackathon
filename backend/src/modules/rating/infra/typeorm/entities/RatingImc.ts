@@ -16,10 +16,10 @@ export class RatingImc {
   imc: number
 
   @Column({ type: 'nvarchar', length: 30 })
-  classification: TClassification
+  classification: string
 
   @Column({ type: 'nvarchar', length: 10 })
-  degree: TDegree
+  degree: string
 
   @Column({ type: 'nchar', length: 36 })
   user_rating_id: string
