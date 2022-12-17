@@ -40,6 +40,7 @@ export class RatingImcRepository implements IRatingImcRepository {
   async find({ user_rating_id, user_student_id, skip, limit }: IFindRatingImcDTO): Promise<IResponseFindRatingImc> {
     const [ratings, totalCount] = await this.repository.findAndCount({
       where: { user_rating_id, user_student_id },
+      order: { created_at: 'DESC' },
       skip,
       take: limit
     })
