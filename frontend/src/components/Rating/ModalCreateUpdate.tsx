@@ -67,10 +67,9 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
   const { errors, isSubmitting } = formState
 
   const dataUserStudentCombo =
-    (queryClient.getQueryData(['usersCombo', 'Aluno', null, null]) as IResponse)?.usersCombo || []
+    (queryClient.getQueryData(['usersCombo', 'Aluno']) as IResponse)?.usersCombo || []
   const dataUserTeacherCombo =
-    (queryClient.getQueryData(['usersCombo', 'Professor', null, null]) as IResponse)?.usersCombo ||
-    []
+    (queryClient.getQueryData(['usersCombo', 'Professor']) as IResponse)?.usersCombo || []
 
   const onCloseModal = useCallback(() => {
     onClose()

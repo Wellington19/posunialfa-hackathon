@@ -23,8 +23,8 @@ export async function getUsers({ profile, page, limit }: IParams): Promise<IResp
 
   let objQuery = {}
   if (profile) objQuery = { ...objQuery, profile }
-  if (page) objQuery = { ...objQuery, page }
-  if (skip) objQuery = { ...objQuery, skip }
+  if (page) objQuery = { ...objQuery, skip }
+  if (limit) objQuery = { ...objQuery, limit }
 
   const { data, headers } = await api.get('user', {
     params: { ...objQuery }
