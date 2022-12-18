@@ -1,6 +1,6 @@
 import React, { forwardRef, ForwardRefRenderFunction, useCallback } from 'react'
 import { Input, InputProps } from '@chakra-ui/react'
-import { cep, cpf, cnpj, currency, integer } from '@utils/masks'
+import { cep, cpf, cnpj, currency, integer, weight } from '@utils/masks'
 
 interface IProps extends InputProps {
   name: string
@@ -18,6 +18,7 @@ const InputBase: ForwardRefRenderFunction<HTMLInputElement, IProps> = (
       else if (mask === 'currency') currency(value)
       else if (mask === 'cpf') cpf(value)
       else if (mask === 'cnpj') cnpj(value)
+      else if (mask === 'weight') weight(value)
     },
     [mask]
   )

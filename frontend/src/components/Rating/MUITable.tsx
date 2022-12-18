@@ -137,16 +137,12 @@ function MUITable({ data, count }: IProps) {
                       .toString()
                       .replace(/\D/g, '')
                       .padEnd(3, '0')
-                    const weight = dataState[dataIndex][3]
-                      .toString()
-                      .replace(/\D/g, '')
-                      .padEnd(4, '0')
 
                     onOpenModalCreateUpdate({
                       type: 'Editar avaliação',
                       id: dataState[dataIndex][0].id,
                       height,
-                      weight,
+                      weight: dataState[dataIndex][3],
                       user_rating_id: dataState[dataIndex][0].user_rating_id,
                       user_student_id: dataState[dataIndex][0].user_student_id
                     })

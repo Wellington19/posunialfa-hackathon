@@ -14,7 +14,7 @@ import {
 import { SubmitHandler, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ButtonCancel, ButtonSave, InputMask, Select } from '@componentsUI/exports'
+import { ButtonCancel, ButtonSave, Input, InputMask, Select } from '@componentsUI/exports'
 import { useModalContext } from '@contexts/ModalContext'
 import { queryClient } from '@services/queryClient'
 import { IResponse } from '@services/hooks/user/useUsersCombo'
@@ -37,12 +37,11 @@ const formSchema = yup.object().shape({
       return true
     }),
   weight: yup
-    .string()
+    .number()
     .required('Peso obrigatório')
-    .test('incomplet', 'Preenchimento incompleto', value => {
-      if (value.replace(/\D/g, '') && value.replace(/\D/g, '').length < 4) return false
-      return true
-    }),
+    .positive('Peso deve ser maior que 0')
+    .max(1000, 'Peso máximo 1000')
+    .typeError('Peso inválido'),
   user_student_id: yup.string().required('Aluno obrigatório'),
   user_rating_id: yup.string().required('Professor obrigatório')
 })
@@ -147,9 +146,9 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
                 error={errors.height}
               />
 
-              <InputMask
+              <Input
                 name="weight"
-                mask="99.99"
+                mask="weight"
                 label="Peso"
                 size="md"
                 isRequired

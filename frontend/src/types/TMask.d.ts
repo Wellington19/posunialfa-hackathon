@@ -1,1 +1,1 @@
-type TMaskInput = 'cep' | 'currency' | 'cpf' | 'cnpj' | 'integer'
+type TMaskInput = 'cep' | 'currency' | 'cpf' | 'cnpj' | 'integer' | 'weight'
