@@ -12,7 +12,7 @@ const basePath = process.env.NODE_ENV === 'production' ? 'dist' : 'src';
 const extensionPath = process.env.NODE_ENV === 'production' ? '*.js' : '*.ts';
 const MyDBDataSource = new _typeorm.DataSource({
   type: 'mysql',
-  url: process.env.DATABASE_URL,
+  url: process.env.JAWSDB_URL,
   host: process.env.MYSQL_HOST,
   port: Number(process.env.MYSQL_PORT),
   username: process.env.MYSQL_USERNAME,
