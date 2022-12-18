@@ -37,14 +37,20 @@ export class PatchRatingImcUseCase {
     const rating = await this.ratingImcRepository.findById(id)
     if (!rating) throw new AppError('Avaliação não existe na base de dados', 404)
 
-    let user = await this.userRepository.findById(user_student_id)
-    if (!user) throw new AppError('Aluno não existe na base de dados', 404)
-    if (user.profile !== 'Aluno') throw new AppError('Usuário informado não tem perfil de aluno', 400)
-    if (user.situation !== 'A') throw new AppError('Não é permitido cadastrar avaliação para aluno inativo', 400)
+    if (user_student_id) {
+      const user = await this.userRepository.findById(user_student_id)
+      if (!user) throw new AppError('Aluno não existe na base de dados', 404)
 
-    user = await this.userRepository.findById(user_rating_id)
-    if (!user) throw new AppError('Usuário avaliador não existe na base de dados', 404)
-    if (user.situation !== 'A') throw new AppError('Não é permitido cadastrar avaliação com um avaliador inativo', 400)
+      if (user.profile !== 'Aluno') throw new AppError('Usuário informado não tem perfil de aluno', 400)
+      if (user.situation !== 'A') throw new AppError('Não é permitido cadastrar avaliação para aluno inativo', 400)
+    }
+
+    if (user_rating_id) {
+      const user = await this.userRepository.findById(user_rating_id)
+      if (!user) throw new AppError('Usuário avaliador não existe na base de dados', 404)
+
+      if (user.situation !== 'A') throw new AppError('Não é permitido cadastrar avaliação com um avaliador inativo', 400)
+    }
 
     if (height || weight) {
       this.height = Number(height ?? rating.height)
