@@ -147,8 +147,9 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
               />
 
               <Input
+                type="number"
                 name="weight"
-                mask="weight"
+                step={0.01}
                 label="Peso"
                 size="md"
                 isRequired
