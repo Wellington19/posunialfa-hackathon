@@ -19,6 +19,7 @@ export async function createRating(data: ICreateRatingDTO): Promise<boolean> {
         type: 'success',
         message: 'Avaliação cadastrada com sucesso!'
       })
+
       success = true
     })
     .catch(error => {
@@ -31,10 +32,10 @@ export async function createRating(data: ICreateRatingDTO): Promise<boolean> {
         message: `Falha ao salvar avaliação: ${message}`,
         autoClose: 5000
       })
-      success = false
     })
     .finally(() => {
       queryClient.invalidateQueries('ratings')
     })
+
   return success
 }

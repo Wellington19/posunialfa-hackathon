@@ -86,6 +86,7 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
         user_rating_id: values.user_rating_id,
         user_student_id: values.user_student_id
       })
+
       if (success) onCloseModal()
     } else if (modalCreateUpdateData?.type === 'Editar avaliação') {
       const success = await updateRating(
@@ -103,6 +104,7 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
           user_student_id: modalCreateUpdateData?.user_student_id
         }
       )
+
       if (success) onCloseModal()
     }
   }

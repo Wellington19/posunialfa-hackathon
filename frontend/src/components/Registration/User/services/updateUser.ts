@@ -18,7 +18,9 @@ interface IOldData {
   situation: string
 }
 
-export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promise<void> {
+// eslint-disable-next-line consistent-return
+export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promise<boolean> {
+  let success = false
   let objUpdate = {}
 
   if (data.name !== oldData.name) objUpdate = { ...objUpdate, name: data.name }
@@ -36,6 +38,8 @@ export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promi
           type: 'success',
           message: 'Usuário editado com sucesso!'
         })
+
+        success = true
       })
       .catch(error => {
         const message = error.response
@@ -52,5 +56,7 @@ export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promi
         queryClient.invalidateQueries('users')
         queryClient.invalidateQueries('usersCombo')
       })
+
+    return success
   }
 }

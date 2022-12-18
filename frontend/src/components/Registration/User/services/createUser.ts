@@ -10,7 +10,9 @@ interface ICreateUserDTO {
   situation: string
 }
 
-export async function createUser(data: ICreateUserDTO): Promise<void> {
+export async function createUser(data: ICreateUserDTO): Promise<boolean> {
+  let success = false
+
   await api
     .post('user', data)
     .then(() => {
@@ -18,6 +20,8 @@ export async function createUser(data: ICreateUserDTO): Promise<void> {
         type: 'success',
         message: 'Usuário cadastrado com sucesso!'
       })
+
+      success = true
     })
     .catch(error => {
       const message = error.response
@@ -33,4 +37,6 @@ export async function createUser(data: ICreateUserDTO): Promise<void> {
       queryClient.invalidateQueries('users')
       queryClient.invalidateQueries('usersCombo')
     })
+
+  return success
 }

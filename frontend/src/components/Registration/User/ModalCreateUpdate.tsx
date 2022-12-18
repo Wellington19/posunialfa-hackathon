@@ -81,40 +81,34 @@ function ModalCreateUpdate({ isOpen, onClose }: IProps) {
 
   const handleSave: SubmitHandler<IFormData> = async values => {
     if (modalCreateUpdateData?.type === 'Novo usuário') {
-      try {
-        await createUser({
+      const success = await createUser({
+        name: values.name,
+        username: values.username,
+        profile: values.profile,
+        password: values.password,
+        situation: values.situation
+      })
+
+      if (success) onCloseModal()
+    } else if (modalCreateUpdateData?.type === 'Editar usuário') {
+      const success = await updateUser(
+        {
+          id: modalCreateUpdateData?.id,
           name: values.name,
           username: values.username,
           profile: values.profile,
           password: values.password,
           situation: values.situation
-        })
-        onCloseModal()
-      } catch (error) {
-        //
-      }
-    } else if (modalCreateUpdateData?.type === 'Editar usuário') {
-      try {
-        await updateUser(
-          {
-            id: modalCreateUpdateData?.id,
-            name: values.name,
-            username: values.username,
-            profile: values.profile,
-            password: values.password,
-            situation: values.situation
-          },
-          {
-            name: modalCreateUpdateData?.name,
-            username: modalCreateUpdateData?.username,
-            profile: modalCreateUpdateData?.profile,
-            situation: modalCreateUpdateData?.situation
-          }
-        )
-        onCloseModal()
-      } catch (error) {
-        //
-      }
+        },
+        {
+          name: modalCreateUpdateData?.name,
+          username: modalCreateUpdateData?.username,
+          profile: modalCreateUpdateData?.profile,
+          situation: modalCreateUpdateData?.situation
+        }
+      )
+
+      if (success) onCloseModal()
     }
   }
 

@@ -39,6 +39,7 @@ export async function updateRating(data: IUpdateRatingDTO, oldData: IOldData): P
           type: 'success',
           message: 'Avaliação editada com sucesso!'
         })
+
         success = true
       })
       .catch(error => {
@@ -51,7 +52,6 @@ export async function updateRating(data: IUpdateRatingDTO, oldData: IOldData): P
           message: `Falha ao editar avaliação: ${message}`,
           autoClose: 5000
         })
-        success = false
       })
       .finally(() => {
         queryClient.invalidateQueries('ratings')
