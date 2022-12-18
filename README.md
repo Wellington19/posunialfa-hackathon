@@ -44,7 +44,7 @@ professores, usuários administradores ou alunos.
 
 ### Backend
 - Typescript
-- Node js + Express com TypeORM
+- Node js(v18.12.1) + Express com TypeORM
 - Validação da entrada de dados nos endpoints com Celebrate
 - MySQL como banco de dados
 
