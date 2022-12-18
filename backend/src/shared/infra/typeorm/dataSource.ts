@@ -6,6 +6,7 @@ const extensionPath = process.env.NODE_ENV === 'production' ? '*.js' : '*.ts'
 
 export const MyDBDataSource = new DataSource({
   type: 'mysql',
+  url: process.env.DATABASE_URL,
   host: process.env.MYSQL_HOST,
   port: Number(process.env.MYSQL_PORT),
   username: process.env.MYSQL_USERNAME,
