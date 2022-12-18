@@ -1,9 +1,9 @@
 import React from 'react'
 import { Flex, Icon, IconButton, useBreakpointValue } from '@chakra-ui/react'
 import { RiMenuLine } from 'react-icons/ri'
-import { Profile } from './Profile'
 import { Logo } from '@componentsShared/exports'
 import { useSideBarContext } from '@contexts/SideBarContext'
+import { Profile } from './Profile'
 
 export function Header({ childVisible }) {
   const { onOpenCloseSideBar } = useSideBarContext()

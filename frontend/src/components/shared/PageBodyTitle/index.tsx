@@ -8,12 +8,7 @@ interface IProps {
   children?: ReactNode
 }
 
-export function PageBodyTitle({
-  title,
-  isLoading,
-  isFetching,
-  children
-}: IProps) {
+export function PageBodyTitle({ title, isLoading, isFetching, children }: IProps) {
   return (
     <>
       <Flex mb="0.5" justifyContent="space-between" align="center">

@@ -12,4 +12,3 @@ export function PageTitle({ title }: IProps) {
     </Head>
   )
 }
-
