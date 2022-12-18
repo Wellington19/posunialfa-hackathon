@@ -16,7 +16,7 @@ import { useSideBarContext } from '@contexts/SideBarContext'
 import { useAuthContext } from '@contexts/AuthContext'
 
 export function Sidebar() {
-  const { signOut } = useAuthContext()
+  const { user, signOut } = useAuthContext()
   const { isOpen } = useSideBarContext()
 
   return (
@@ -30,13 +30,15 @@ export function Sidebar() {
       </SidebarHeader>
 
       <SidebarContent>
-        <Menu iconShape="square">
-          <SubMenu title="Cadastros" icon={<FaAddressBook />}>
-            <Link href="/cadastros/usuarios" passHref>
-              <MenuItem>Usuários</MenuItem>
-            </Link>
-          </SubMenu>
-        </Menu>
+        {user?.profile !== 'Aluno' && (
+          <Menu iconShape="square">
+            <SubMenu title="Cadastros" icon={<FaAddressBook />}>
+              <Link href="/cadastros/usuarios" passHref>
+                <MenuItem>Usuários</MenuItem>
+              </Link>
+            </SubMenu>
+          </Menu>
+        )}
       </SidebarContent>
 
       <SidebarFooter>

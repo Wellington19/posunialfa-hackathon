@@ -4,6 +4,7 @@ import { Box, Divider, SimpleGrid, Skeleton } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Container, PageBodyTitle, PageTitle, Section } from '@componentsShared/exports'
 import { ButtonNew, ButtonRefresh, Select } from '@componentsUI/exports'
+import { useAuthContext } from '@contexts/AuthContext'
 import { ModalProvider, useModalContext } from '@contexts/ModalContext'
 import { MUITableProvider, useMUITableContext } from '@contexts/MUITableContext'
 import { useUsersCombo } from '@services/hooks/user/useUsersCombo'
@@ -31,6 +32,7 @@ interface IFormData {
 }
 
 function Main() {
+  const { user } = useAuthContext()
   const {
     modalOneOpen: modalCreateUpdateOpen,
     onOpenModalOne: onOpenModalCreateUpdate,
@@ -40,7 +42,7 @@ function Main() {
 
   const [dataChart, setDataChart] = useState<any[]>([['', 'IMC']])
 
-  const { register, watch, formState, handleSubmit } = useForm({
+  const { register, watch, formState, handleSubmit, setValue } = useForm({
     defaultValues: { user_student_id: '' }
   })
   const { isSubmitting } = formState
@@ -78,6 +80,11 @@ function Main() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dataRating])
 
+  useEffect(() => {
+    if (user?.profile === 'Aluno') setValue('user_student_id', user?.id)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
   return (
     <>
       <PageTitle title="Início" />
@@ -91,9 +98,11 @@ function Main() {
 
       <Container>
         <PageBodyTitle title="Avaliações" isLoading={isLoading} isFetching={isFetching}>
-          <ButtonNew onClick={() => onOpenModalCreateUpdate({ type: 'Nova avaliação' })}>
-            Criar nova
-          </ButtonNew>
+          {user?.profile !== 'Aluno' && (
+            <ButtonNew onClick={() => onOpenModalCreateUpdate({ type: 'Nova avaliação' })}>
+              Criar nova
+            </ButtonNew>
+          )}
         </PageBodyTitle>
 
         <Section as="form" onSubmit={handleSubmit(handleRunFilter)}>
@@ -103,6 +112,7 @@ function Main() {
               label="Aluno"
               size="md"
               placeholder="Selecione um aluno..."
+              isDisabled={user?.profile === 'Aluno'}
               options={dataUserStudentCombo?.usersCombo || []}
               {...register('user_student_id')}
             />

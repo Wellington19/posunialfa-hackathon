@@ -17,7 +17,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { ButtonCancel, ButtonSave, Input, InputPassword, Select } from '@componentsUI/exports'
 import { useModalContext } from '@contexts/ModalContext'
 import { situations } from '@utils/variables'
-import { profiles } from './utils/variables'
+import { useAuthContext } from '@contexts/AuthContext'
+import { getProfiles } from './utils/functions'
 import { createUser } from './services/createUser'
 import { updateUser } from './services/updateUser'
 
@@ -60,10 +61,12 @@ interface IProps {
 }
 
 function ModalCreateUpdate({ isOpen, onClose }: IProps) {
+  const { user } = useAuthContext()
   const { modalOneData: modalCreateUpdateData } = useModalContext()
 
   const formSchema =
     modalCreateUpdateData?.type === 'Novo usuário' ? createFormSchema : updateFormSchema
+  const profiles = user?.profile !== 'Administrador' ? getProfiles(['Aluno']) : getProfiles()
 
   const { handleSubmit, formState, reset, setValue, register } = useForm({
     resolver: yupResolver(formSchema)

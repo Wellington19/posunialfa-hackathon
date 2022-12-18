@@ -4,6 +4,7 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import { Badge } from '@chakra-ui/react'
 import { ButtonDelete, ButtonEdit, PopoverConfirm } from '@componentsUI/exports'
 import { executeSort, textLabels, getTheme } from '@utils/configMuiTable'
+import { useAuthContext } from '@contexts/AuthContext'
 import { useModalContext } from '@contexts/ModalContext'
 import { useMUITableContext } from '@contexts/MUITableContext'
 import { formatDateptBR } from '@utils/format'
@@ -20,6 +21,7 @@ interface IProps {
 }
 
 function MUITable({ data, count }: IProps) {
+  const { user } = useAuthContext()
   const { onOpenModalOne: onOpenModalCreateUpdate } = useModalContext()
   const { page, rowsPerPage, setCurrentPage, setCurrentRowsPerPage } = useMUITableContext()
 
@@ -120,15 +122,25 @@ function MUITable({ data, count }: IProps) {
       {
         name: 'Ações',
         options: {
+          display: user?.profile !== 'Aluno',
           filter: false,
           sort: false,
           empty: true,
           customBodyRenderLite: (dataIndex: number) => {
+            const canDelete =
+              dataState[dataIndex][2] !== 'admin' && user?.profile === 'Administrador'
+            const canEdit =
+              (user?.profile === 'Administrador' && dataState[dataIndex][2] !== 'admin') ||
+              (dataState[dataIndex][2] !== 'admin' &&
+                dataState[dataIndex][3] === 'Aluno' &&
+                ['Administrador', 'Professor'].includes(user?.profile))
+
             return (
               <>
                 <ButtonEdit
                   mr="1"
                   size="xs"
+                  isDisabled={!canEdit}
                   onClick={() =>
                     onOpenModalCreateUpdate({
                       type: 'Editar usuário',
@@ -147,7 +159,9 @@ function MUITable({ data, count }: IProps) {
                   actionConfirm={() => deleteUser(dataState[dataIndex][0].id)}
                   messageBody="Tem certeza que deseja excluir o usuário?"
                 >
-                  <ButtonDelete size="xs">Excluir</ButtonDelete>
+                  <ButtonDelete size="xs" isDisabled={!canDelete}>
+                    Excluir
+                  </ButtonDelete>
                 </PopoverConfirm>
               </>
             )

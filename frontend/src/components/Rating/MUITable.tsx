@@ -3,6 +3,7 @@ import MUIDataTable, { SelectableRows } from 'mui-datatables'
 import { ThemeProvider } from '@material-ui/core/styles'
 import { ButtonDelete, ButtonEdit, PopoverConfirm } from '@componentsUI/exports'
 import { executeSort, textLabels, getTheme } from '@utils/configMuiTable'
+import { useAuthContext } from '@contexts/AuthContext'
 import { useModalContext } from '@contexts/ModalContext'
 import { useMUITableContext } from '@contexts/MUITableContext'
 import { formatDateptBR } from '@utils/format'
@@ -28,6 +29,7 @@ interface IProps {
 }
 
 function MUITable({ data, count }: IProps) {
+  const { user } = useAuthContext()
   const { onOpenModalOne: onOpenModalCreateUpdate } = useModalContext()
   const { page, rowsPerPage, setCurrentPage, setCurrentRowsPerPage } = useMUITableContext()
 
@@ -120,6 +122,7 @@ function MUITable({ data, count }: IProps) {
       {
         name: 'Ações',
         options: {
+          display: user?.profile !== 'Aluno',
           filter: false,
           sort: false,
           empty: true,
