@@ -22,7 +22,8 @@ export async function updateRating(data: IUpdateRatingDTO, oldData: IOldData): P
   let success = false
   let objUpdate = {}
 
-  if (data.height !== oldData.height) objUpdate = { ...objUpdate, height: data.height }
+  if (Number(data.height.toString().replace(/\D/g, '')) !== oldData.height)
+    objUpdate = { ...objUpdate, height: data.height }
   if (data.weight !== oldData.weight) objUpdate = { ...objUpdate, weight: data.weight }
   if (data.user_rating_id !== oldData.user_rating_id)
     objUpdate = { ...objUpdate, user_rating_id: data.user_rating_id }
@@ -39,14 +40,12 @@ export async function updateRating(data: IUpdateRatingDTO, oldData: IOldData): P
           type: 'success',
           message: 'Avaliação editada com sucesso!'
         })
-
         success = true
       })
       .catch(error => {
         const message = error.response
           ? `${error.response.data.message}`
           : 'Erro de comunicação com servidor'
-
         toastMessage({
           type: 'error',
           message: `Falha ao editar avaliação: ${message}`,
@@ -56,7 +55,7 @@ export async function updateRating(data: IUpdateRatingDTO, oldData: IOldData): P
       .finally(() => {
         queryClient.invalidateQueries('ratings')
       })
+  } else success = true
 
-    return success
-  }
+  return success
 }

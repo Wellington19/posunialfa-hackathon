@@ -56,7 +56,7 @@ export async function updateUser(data: IUpdateUserDTO, oldData: IOldData): Promi
         queryClient.invalidateQueries('users')
         queryClient.invalidateQueries('usersCombo')
       })
+  } else success = true
 
-    return success
-  }
+  return success
 }
