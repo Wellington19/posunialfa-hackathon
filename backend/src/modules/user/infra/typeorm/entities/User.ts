@@ -1,4 +1,4 @@
-import { RatingImc } from '@modules/rating/infra/typeorm/entities/RatingImc'
+import { RatingImc } from '../../../../rating/infra/typeorm/entities/RatingImc'
 import { Entity, PrimaryColumn, Column, CreateDateColumn, ManyToOne, JoinColumn } from 'typeorm'
 import { v4 as uuidV4 } from 'uuid'
 
